@@ -1,16 +1,25 @@
-import React from 'react'
+//rafce
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Profile from '../components/Profile'
 import View from '../components/View'
 
 const Dashboard = () => {
+  const [username,setUsername] = useState("")
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("user")){
+      setUsername(JSON.parse(sessionStorage.getItem("user")).username.split(" ")[0])
+    }
+  },[])
+
   return (
     <>
     <Header insideDashboard={true}/>
-    <div className="cotainer-fluid py-5 ms-3">
+    <div className="container-fluid py-5">
       <div className="row">
         <div className="col-lg-8">
-          <h1>Welcome <span className="text-warning">User</span>,</h1>
+          <h1>Welcome <span className="text-warning">{username}</span>,</h1>
           <View/>
         </div>
         <div className="col-lg-4">
@@ -18,6 +27,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    
     </>
   )
 }
